@@ -33,18 +33,17 @@
             this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
             this.exitButton = new Guna.UI2.WinForms.Guna2Button();
             this.labelMain = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panelMain = new System.Windows.Forms.Panel();
             this.CameraRadioButtton = new Guna.UI2.WinForms.Guna2Button();
             this.RadarRadioButton = new Guna.UI2.WinForms.Guna2Button();
             this.GNSSRadioButton = new Guna.UI2.WinForms.Guna2Button();
-            this.AnalysRadioButton = new Guna.UI2.WinForms.Guna2Button();
             this.LidarRadioButton = new Guna.UI2.WinForms.Guna2Button();
             this.MainRadiobutton = new Guna.UI2.WinForms.Guna2Button();
             this.panelContainer = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panelTop.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panelMain.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // panelTop
@@ -103,23 +102,12 @@
             this.labelMain.TabIndex = 1;
             this.labelMain.Text = "Precep App";
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(12, 3);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(70, 41);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            // 
             // panelMain
             // 
             this.panelMain.BackColor = System.Drawing.Color.White;
             this.panelMain.Controls.Add(this.CameraRadioButtton);
             this.panelMain.Controls.Add(this.RadarRadioButton);
             this.panelMain.Controls.Add(this.GNSSRadioButton);
-            this.panelMain.Controls.Add(this.AnalysRadioButton);
             this.panelMain.Controls.Add(this.LidarRadioButton);
             this.panelMain.Controls.Add(this.MainRadiobutton);
             this.panelMain.Dock = System.Windows.Forms.DockStyle.Top;
@@ -140,7 +128,7 @@
             this.CameraRadioButtton.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.CameraRadioButtton.ForeColor = System.Drawing.Color.Black;
             this.CameraRadioButtton.HoverState.CustomBorderColor = System.Drawing.Color.Red;
-            this.CameraRadioButtton.Location = new System.Drawing.Point(427, 6);
+            this.CameraRadioButtton.Location = new System.Drawing.Point(234, 11);
             this.CameraRadioButtton.Name = "CameraRadioButtton";
             this.CameraRadioButtton.Size = new System.Drawing.Size(89, 45);
             this.CameraRadioButtton.TabIndex = 5;
@@ -159,7 +147,7 @@
             this.RadarRadioButton.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.RadarRadioButton.ForeColor = System.Drawing.Color.Black;
             this.RadarRadioButton.HoverState.CustomBorderColor = System.Drawing.Color.Red;
-            this.RadarRadioButton.Location = new System.Drawing.Point(659, 6);
+            this.RadarRadioButton.Location = new System.Drawing.Point(452, 11);
             this.RadarRadioButton.Name = "RadarRadioButton";
             this.RadarRadioButton.Size = new System.Drawing.Size(89, 45);
             this.RadarRadioButton.TabIndex = 4;
@@ -178,31 +166,12 @@
             this.GNSSRadioButton.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.GNSSRadioButton.ForeColor = System.Drawing.Color.Black;
             this.GNSSRadioButton.HoverState.CustomBorderColor = System.Drawing.Color.Red;
-            this.GNSSRadioButton.Location = new System.Drawing.Point(550, 6);
+            this.GNSSRadioButton.Location = new System.Drawing.Point(346, 11);
             this.GNSSRadioButton.Name = "GNSSRadioButton";
             this.GNSSRadioButton.Size = new System.Drawing.Size(89, 45);
             this.GNSSRadioButton.TabIndex = 3;
-            this.GNSSRadioButton.Text = "GNSS";
+            this.GNSSRadioButton.Text = "Карта";
             this.GNSSRadioButton.Click += new System.EventHandler(this.GNSSRadioButton_Click);
-            // 
-            // AnalysRadioButton
-            // 
-            this.AnalysRadioButton.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
-            this.AnalysRadioButton.CheckedState.CustomBorderColor = System.Drawing.Color.Red;
-            this.AnalysRadioButton.CheckedState.FillColor = System.Drawing.Color.White;
-            this.AnalysRadioButton.CustomBorderColor = System.Drawing.Color.White;
-            this.AnalysRadioButton.CustomBorderThickness = new System.Windows.Forms.Padding(0, 0, 0, 3);
-            this.AnalysRadioButton.DisabledState.FillColor = System.Drawing.Color.White;
-            this.AnalysRadioButton.FillColor = System.Drawing.Color.White;
-            this.AnalysRadioButton.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.AnalysRadioButton.ForeColor = System.Drawing.Color.Black;
-            this.AnalysRadioButton.HoverState.CustomBorderColor = System.Drawing.Color.Red;
-            this.AnalysRadioButton.Location = new System.Drawing.Point(98, 6);
-            this.AnalysRadioButton.Name = "AnalysRadioButton";
-            this.AnalysRadioButton.Size = new System.Drawing.Size(186, 45);
-            this.AnalysRadioButton.TabIndex = 2;
-            this.AnalysRadioButton.Text = "Аналитический модуль";
-            this.AnalysRadioButton.Click += new System.EventHandler(this.AnalysRadioButton_Click);
             // 
             // LidarRadioButton
             // 
@@ -216,7 +185,7 @@
             this.LidarRadioButton.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.LidarRadioButton.ForeColor = System.Drawing.Color.Black;
             this.LidarRadioButton.HoverState.CustomBorderColor = System.Drawing.Color.Red;
-            this.LidarRadioButton.Location = new System.Drawing.Point(302, 6);
+            this.LidarRadioButton.Location = new System.Drawing.Point(115, 11);
             this.LidarRadioButton.Name = "LidarRadioButton";
             this.LidarRadioButton.Size = new System.Drawing.Size(97, 45);
             this.LidarRadioButton.TabIndex = 1;
@@ -236,7 +205,7 @@
             this.MainRadiobutton.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.MainRadiobutton.ForeColor = System.Drawing.Color.Black;
             this.MainRadiobutton.HoverState.CustomBorderColor = System.Drawing.Color.Red;
-            this.MainRadiobutton.Location = new System.Drawing.Point(3, 6);
+            this.MainRadiobutton.Location = new System.Drawing.Point(3, 11);
             this.MainRadiobutton.Name = "MainRadiobutton";
             this.MainRadiobutton.Size = new System.Drawing.Size(89, 45);
             this.MainRadiobutton.TabIndex = 0;
@@ -252,6 +221,16 @@
             this.panelContainer.Size = new System.Drawing.Size(850, 390);
             this.panelContainer.TabIndex = 2;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(12, 3);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(70, 41);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            // 
             // DemoForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -266,8 +245,8 @@
             this.Text = "Form1";
             this.panelTop.ResumeLayout(false);
             this.panelTop.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panelMain.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -283,7 +262,6 @@
         private Guna.UI2.WinForms.Guna2Button CameraRadioButtton;
         private Guna.UI2.WinForms.Guna2Button RadarRadioButton;
         private Guna.UI2.WinForms.Guna2Button GNSSRadioButton;
-        private Guna.UI2.WinForms.Guna2Button AnalysRadioButton;
         private Guna.UI2.WinForms.Guna2Button LidarRadioButton;
         private Guna.UI2.WinForms.Guna2Button guna2Button1;
         private Guna.UI2.WinForms.Guna2Button exitButton;

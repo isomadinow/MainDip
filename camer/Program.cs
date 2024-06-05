@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Demo
+namespace camer
 {
     internal static class Program
     {
@@ -16,7 +16,7 @@ namespace Demo
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new DemoForm());
+            Application.Run(new Form1());
         }
     }
 }

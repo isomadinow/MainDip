@@ -14,7 +14,10 @@ using NLog.Config;
 using NLog.Windows.Forms;
 using NLog.Extensions.Logging;
 using LogLevel = NLog.LogLevel;
-using System.Web.Configuration;
+
+using static System.Net.Mime.MediaTypeNames;
+using TheArtOfDevHtmlRenderer.Adapters;
+using Image = System.Drawing.Image;
 
 namespace Demo.PanelControl
 {
@@ -61,7 +64,7 @@ namespace Demo.PanelControl
         {
             // Setup form textbox as logging target
             // Solution from:
-          
+
 
             RichTextBoxTarget loggerTextBoxTarget = new RichTextBoxTarget
             {

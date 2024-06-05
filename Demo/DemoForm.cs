@@ -16,6 +16,8 @@ namespace Demo
         public DemoForm()
         {
             InitializeComponent();
+            AnalyticControlPanel analyticControlPanel = new AnalyticControlPanel();
+            addUserControl(analyticControlPanel);
         }
 
      
@@ -37,22 +39,29 @@ namespace Demo
    
         private void MainRadiobutton_Click(object sender, EventArgs e)
         {
-            panelContainer.Controls.Clear();
+           AnalyticControlPanel analyticControlPanel = new AnalyticControlPanel();
+            addUserControl(analyticControlPanel);
         }
 
         private void CameraRadioButtton_Click(object sender, EventArgs e)
         {
-            panelContainer.Controls.Clear();
+            CameraControlPanel cameraControlPanel = new CameraControlPanel();
+            addUserControl(cameraControlPanel);
+            
         }
 
         private void GNSSRadioButton_Click(object sender, EventArgs e)
         {
-            panelContainer.Controls.Clear();
+            MapControlPanel mapControlPanel = new MapControlPanel();
+            addUserControl(mapControlPanel);
+           
         }
 
         private void RadarRadioButton_Click(object sender, EventArgs e)
         {
-            panelContainer.Controls.Clear();
+           RadarControlPanel radarControlPanel = new RadarControlPanel();
+           addUserControl(radarControlPanel);
+          
         }
         private void AnalysRadioButton_Click(object sender, EventArgs e)
         {
