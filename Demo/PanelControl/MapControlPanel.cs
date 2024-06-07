@@ -6,11 +6,15 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms.Markers;
+using System.Data.Entity;
+using Demo.bd;
+using System.Drawing.Imaging;
 
 namespace Demo.PanelControl
 {
@@ -19,7 +23,7 @@ namespace Demo.PanelControl
         GMarkerGoogle marker;
         GMapOverlay markerOverlay;
         DataTable dt;
-
+        private GMapOverlay PolygonOverlay;
         //Ruta automatizada(dirección)
         bool drawRoute = false;
         int RouteIndecatorCounter = 0;
@@ -31,10 +35,14 @@ namespace Demo.PanelControl
         double InitialLng = 86.0793399810791;
 
 
-
+        private MyDbContext dbContext;
         public MapControlPanel()
         {
             InitializeComponent();
+            dbContext = new MyDbContext(DemoForm.connectionString);
+            PolygonOverlay = new GMapOverlay("PolygonOverlay");
+        gMapControl1.Overlays.Add(PolygonOverlay);
+            Directory.CreateDirectory("photoPolygon");
         }
 
         private void btnRuta_Click(object sender, EventArgs e)
@@ -55,15 +63,18 @@ namespace Demo.PanelControl
             GMapRoute routePoints = new GMapRoute(points, "Route");
             RouteOverlay.Routes.Add(routePoints);
             gMapControl1.Overlays.Add(RouteOverlay);
-
+            
             // Update the map
             gMapControl1.Zoom = gMapControl1.Zoom + 1;
             gMapControl1.Zoom = gMapControl1.Zoom - 1;
         }
 
+
+
+
         private void btnPolygon_Click(object sender, EventArgs e)
         {
-            GMapOverlay PolygonOverlay = new GMapOverlay("PolygonOverlay");
+           
             List<PointLatLng> points = new List<PointLatLng>();
 
             double lng, lat;
@@ -79,10 +90,46 @@ namespace Demo.PanelControl
             PolygonOverlay.Polygons.Add(polygonPoints);
             gMapControl1.Overlays.Add(PolygonOverlay);
 
+            PolygonOverlay.Polygons.Add(polygonPoints);
+            dataGridViewPolygons.Rows.Add(polygonPoints.Name);
             gMapControl1.Zoom = gMapControl1.Zoom + 1;
             gMapControl1.Zoom = gMapControl1.Zoom - 1;
 
 
+        }
+        private string GetUniqueFileName(string baseFilename)
+        {
+            string directory = "photoPolygon";
+            string filename = Path.Combine(directory, baseFilename + ".png");
+            int count = 1;
+
+            while (File.Exists(filename))
+            {
+                filename = Path.Combine(directory, baseFilename + "_" + count + ".png");
+                count++;
+            }
+
+            return filename;
+        }
+        private void TakePolygonScreenshot(GMapPolygon polygon, string filename)
+        {         // Получение границ многоугольника
+            double minLat = polygon.Points.Min(p => p.Lat);
+            double maxLat = polygon.Points.Max(p => p.Lat);
+            double minLng = polygon.Points.Min(p => p.Lng);
+            double maxLng = polygon.Points.Max(p => p.Lng);
+
+            // Вычисление размерности скриншота
+            RectLatLng area = new RectLatLng(maxLat, minLng, maxLng - minLng, maxLat - minLat);
+
+            // Настройка размеров скриншота
+            int width = gMapControl1.Size.Width;
+            int height = gMapControl1.Size.Height;
+
+            using (Bitmap bitmap = new Bitmap(width, height))
+            {
+                gMapControl1.DrawToBitmap(bitmap, new Rectangle(0, 0, width, height));
+                bitmap.Save(filename, System.Drawing.Imaging.ImageFormat.Png);
+            }
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
@@ -130,7 +177,7 @@ namespace Demo.PanelControl
             //insertando datos al dt para mostrar en la lista
             dt.Rows.Add("Расположение", InitialLat, InitialLng);
             dataGridView1.DataSource = dt;
-
+            dataGridViewPolygons.Columns.Add("PolygonName", "Polygon Name");
             //desactivar las columnas de lat y long
             dataGridView1.Columns[1].Visible = false;
             dataGridView1.Columns[2].Visible = false;
@@ -171,10 +218,7 @@ namespace Demo.PanelControl
             gMapControl1.Position = marker.Position;
         }
 
-        private void gMapControl1_Load(object sender, EventArgs e)
-        {
-
-        }
+       
 
         private void gMapControl1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
@@ -219,6 +263,59 @@ namespace Demo.PanelControl
                         break;
                 }
             }
+        }
+        // Метод для преобразования изображения в массив байтов
+        private byte[] ImageToByteArray(Image image)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                image.Save(ms, ImageFormat.Bmp);
+                return ms.ToArray();
+            }
+        }
+        private void buttonImagePolygon_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewPolygons.SelectedRows.Count > 0)
+            {
+                int selectedIndex = dataGridViewPolygons.SelectedRows[0].Index;
+                GMapPolygon selectedPolygon = PolygonOverlay.Polygons[selectedIndex];
+                string filename = GetUniqueFileName("screenshot");
+                TakePolygonScreenshot(selectedPolygon, filename);
+
+                try
+                {
+                    // Создаем экземпляр класса Polygon и заполняем его свойства
+                    Polygon polygon = new Polygon
+                    {
+                        PolygonDate = DateTime.Now,
+                        PolygonName = "Polygon_" + selectedIndex, // Пример для названия полигона
+                        PolygonPhoto = ImageToByteArray(new Bitmap(filename))
+                    };
+
+                    // Добавляем объект polygon в контекст базы данных
+                    dbContext.Polygons.Add(polygon);
+
+                    // Сохраняем изменения в базе данных
+                    dbContext.SaveChanges();
+
+                    MessageBox.Show("Данные о полигоне успешно сохранены в базе данных.", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Произошла ошибка при сохранении данных о полигоне: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                MessageBox.Show("Скриншот сохранен как " + filename, "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Пожалуйста, выберите полигон из списка.", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void buttonStart_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.label4 = new System.Windows.Forms.Label();
             this.trackZoom = new System.Windows.Forms.TrackBar();
@@ -47,8 +50,13 @@
             this.btnEliminar = new System.Windows.Forms.Button();
             this.btnAgregar = new System.Windows.Forms.Button();
             this.gMapControl1 = new GMap.NET.WindowsForms.GMapControl();
+            this.buttonImagePolygon = new System.Windows.Forms.Button();
+            this.dataGridViewPolygons = new Guna.UI2.WinForms.Guna2DataGridView();
+            this.buttonStart = new System.Windows.Forms.Button();
+            this.textBoxComPort = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.trackZoom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPolygons)).BeginInit();
             this.SuspendLayout();
             // 
             // timer1
@@ -115,9 +123,9 @@
             // 
             this.btnRuta.BackColor = System.Drawing.SystemColors.ControlDark;
             this.btnRuta.ForeColor = System.Drawing.Color.White;
-            this.btnRuta.Location = new System.Drawing.Point(755, 55);
+            this.btnRuta.Location = new System.Drawing.Point(465, 194);
             this.btnRuta.Name = "btnRuta";
-            this.btnRuta.Size = new System.Drawing.Size(64, 34);
+            this.btnRuta.Size = new System.Drawing.Size(68, 34);
             this.btnRuta.TabIndex = 29;
             this.btnRuta.Text = "Маршрут";
             this.btnRuta.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -128,7 +136,7 @@
             // 
             this.btnPolygon.BackColor = System.Drawing.SystemColors.ControlDark;
             this.btnPolygon.ForeColor = System.Drawing.Color.White;
-            this.btnPolygon.Location = new System.Drawing.Point(756, 107);
+            this.btnPolygon.Location = new System.Drawing.Point(479, 233);
             this.btnPolygon.Name = "btnPolygon";
             this.btnPolygon.Size = new System.Drawing.Size(63, 33);
             this.btnPolygon.TabIndex = 28;
@@ -152,25 +160,25 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(549, 98);
+            this.label3.Location = new System.Drawing.Point(393, 93);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(48, 13);
+            this.label3.Size = new System.Drawing.Size(50, 13);
             this.label3.TabIndex = 26;
-            this.label3.Text = "Longitud";
+            this.label3.Text = "Долгота";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(549, 50);
+            this.label2.Location = new System.Drawing.Point(393, 45);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(39, 13);
+            this.label2.Size = new System.Drawing.Size(45, 13);
             this.label2.TabIndex = 25;
-            this.label2.Text = "Latitud";
+            this.label2.Text = "Широта";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(546, 10);
+            this.label1.Location = new System.Drawing.Point(390, 5);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(57, 13);
             this.label1.TabIndex = 24;
@@ -178,21 +186,21 @@
             // 
             // txtlongitud
             // 
-            this.txtlongitud.Location = new System.Drawing.Point(549, 114);
+            this.txtlongitud.Location = new System.Drawing.Point(393, 109);
             this.txtlongitud.Name = "txtlongitud";
             this.txtlongitud.Size = new System.Drawing.Size(200, 20);
             this.txtlongitud.TabIndex = 23;
             // 
             // txtlatitud
             // 
-            this.txtlatitud.Location = new System.Drawing.Point(549, 69);
+            this.txtlatitud.Location = new System.Drawing.Point(393, 64);
             this.txtlatitud.Name = "txtlatitud";
             this.txtlatitud.Size = new System.Drawing.Size(200, 20);
             this.txtlatitud.TabIndex = 22;
             // 
             // txtDescripcion
             // 
-            this.txtDescripcion.Location = new System.Drawing.Point(549, 26);
+            this.txtDescripcion.Location = new System.Drawing.Point(393, 21);
             this.txtDescripcion.Name = "txtDescripcion";
             this.txtDescripcion.Size = new System.Drawing.Size(200, 20);
             this.txtDescripcion.TabIndex = 21;
@@ -201,9 +209,9 @@
             // 
             this.btnEliminar.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.btnEliminar.ForeColor = System.Drawing.Color.White;
-            this.btnEliminar.Location = new System.Drawing.Point(666, 141);
+            this.btnEliminar.Location = new System.Drawing.Point(393, 272);
             this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(86, 49);
+            this.btnEliminar.Size = new System.Drawing.Size(74, 32);
             this.btnEliminar.TabIndex = 20;
             this.btnEliminar.Text = "Удалить\n";
             this.btnEliminar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -214,9 +222,9 @@
             // 
             this.btnAgregar.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.btnAgregar.ForeColor = System.Drawing.Color.White;
-            this.btnAgregar.Location = new System.Drawing.Point(552, 141);
+            this.btnAgregar.Location = new System.Drawing.Point(390, 234);
             this.btnAgregar.Name = "btnAgregar";
-            this.btnAgregar.Size = new System.Drawing.Size(97, 49);
+            this.btnAgregar.Size = new System.Drawing.Size(83, 32);
             this.btnAgregar.TabIndex = 19;
             this.btnAgregar.Text = "Добавить";
             this.btnAgregar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -245,16 +253,106 @@
             this.gMapControl1.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.gMapControl1.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.gMapControl1.ShowTileGridLines = false;
-            this.gMapControl1.Size = new System.Drawing.Size(527, 336);
+            this.gMapControl1.Size = new System.Drawing.Size(362, 332);
             this.gMapControl1.TabIndex = 18;
             this.gMapControl1.Zoom = 0D;
-            this.gMapControl1.Load += new System.EventHandler(this.gMapControl1_Load);
             this.gMapControl1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.gMapControl1_MouseDoubleClick);
+            // 
+            // buttonImagePolygon
+            // 
+            this.buttonImagePolygon.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.buttonImagePolygon.ForeColor = System.Drawing.Color.White;
+            this.buttonImagePolygon.Location = new System.Drawing.Point(396, 194);
+            this.buttonImagePolygon.Name = "buttonImagePolygon";
+            this.buttonImagePolygon.Size = new System.Drawing.Size(63, 33);
+            this.buttonImagePolygon.TabIndex = 35;
+            this.buttonImagePolygon.Text = "Снимок";
+            this.buttonImagePolygon.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.buttonImagePolygon.UseVisualStyleBackColor = false;
+            this.buttonImagePolygon.Click += new System.EventHandler(this.buttonImagePolygon_Click);
+            // 
+            // dataGridViewPolygons
+            // 
+            this.dataGridViewPolygons.AllowUserToAddRows = false;
+            this.dataGridViewPolygons.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            this.dataGridViewPolygons.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewPolygons.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.dataGridViewPolygons.ColumnHeadersHeight = 4;
+            this.dataGridViewPolygons.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewPolygons.DefaultCellStyle = dataGridViewCellStyle3;
+            this.dataGridViewPolygons.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.dataGridViewPolygons.Location = new System.Drawing.Point(610, 21);
+            this.dataGridViewPolygons.Name = "dataGridViewPolygons";
+            this.dataGridViewPolygons.ReadOnly = true;
+            this.dataGridViewPolygons.RowHeadersVisible = false;
+            this.dataGridViewPolygons.Size = new System.Drawing.Size(209, 164);
+            this.dataGridViewPolygons.TabIndex = 36;
+            this.dataGridViewPolygons.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
+            this.dataGridViewPolygons.ThemeStyle.AlternatingRowsStyle.Font = null;
+            this.dataGridViewPolygons.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty;
+            this.dataGridViewPolygons.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty;
+            this.dataGridViewPolygons.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty;
+            this.dataGridViewPolygons.ThemeStyle.BackColor = System.Drawing.Color.White;
+            this.dataGridViewPolygons.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.dataGridViewPolygons.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
+            this.dataGridViewPolygons.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.dataGridViewPolygons.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.dataGridViewPolygons.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
+            this.dataGridViewPolygons.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            this.dataGridViewPolygons.ThemeStyle.HeaderStyle.Height = 4;
+            this.dataGridViewPolygons.ThemeStyle.ReadOnly = true;
+            this.dataGridViewPolygons.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
+            this.dataGridViewPolygons.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.dataGridViewPolygons.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.dataGridViewPolygons.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            this.dataGridViewPolygons.ThemeStyle.RowsStyle.Height = 22;
+            this.dataGridViewPolygons.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.dataGridViewPolygons.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            // 
+            // buttonStart
+            // 
+            this.buttonStart.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.buttonStart.ForeColor = System.Drawing.Color.White;
+            this.buttonStart.Location = new System.Drawing.Point(393, 145);
+            this.buttonStart.Name = "buttonStart";
+            this.buttonStart.Size = new System.Drawing.Size(83, 31);
+            this.buttonStart.TabIndex = 37;
+            this.buttonStart.Text = " Начать";
+            this.buttonStart.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.buttonStart.UseVisualStyleBackColor = false;
+            this.buttonStart.Click += new System.EventHandler(this.buttonStart_Click);
+            // 
+            // textBoxComPort
+            // 
+            this.textBoxComPort.Location = new System.Drawing.Point(482, 151);
+            this.textBoxComPort.Name = "textBoxComPort";
+            this.textBoxComPort.Size = new System.Drawing.Size(77, 20);
+            this.textBoxComPort.TabIndex = 38;
+            this.textBoxComPort.Text = "COM5";
             // 
             // MapControlPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.textBoxComPort);
+            this.Controls.Add(this.buttonStart);
+            this.Controls.Add(this.dataGridViewPolygons);
+            this.Controls.Add(this.buttonImagePolygon);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.trackZoom);
             this.Controls.Add(this.btnRelieve);
@@ -277,6 +375,7 @@
             this.Load += new System.EventHandler(this.MapControlPanel_Load);
             ((System.ComponentModel.ISupportInitialize)(this.trackZoom)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPolygons)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -302,5 +401,9 @@
         private System.Windows.Forms.Button btnEliminar;
         private System.Windows.Forms.Button btnAgregar;
         private GMap.NET.WindowsForms.GMapControl gMapControl1;
+        private System.Windows.Forms.Button buttonImagePolygon;
+        private Guna.UI2.WinForms.Guna2DataGridView dataGridViewPolygons;
+        private System.Windows.Forms.Button buttonStart;
+        private System.Windows.Forms.TextBox textBoxComPort;
     }
 }

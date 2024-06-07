@@ -13,11 +13,14 @@ using Microsoft.Extensions.Logging;
 using NLog.Config;
 using NLog.Windows.Forms;
 using NLog.Extensions.Logging;
+
+using System.IO;
 using LogLevel = NLog.LogLevel;
 
 using static System.Net.Mime.MediaTypeNames;
 using TheArtOfDevHtmlRenderer.Adapters;
 using Image = System.Drawing.Image;
+using System.Windows.Documents;
 
 namespace Demo.PanelControl
 {
@@ -319,7 +322,7 @@ namespace Demo.PanelControl
             labelSPC.Text = scan.ScanRate.ToString("f2");
             labelPPS.Text = scan.Measurements.Count.ToString();
         }
-
+        private List<Point> points = new List<Point>();
         /// <summary>
         /// Draw scan image
         /// </summary>
@@ -346,6 +349,9 @@ namespace Demo.PanelControl
                 gfx.DrawString(range.ToString() + "m", SystemFonts.DialogFont, Brushes.LightGreen, center.X + sr + 5, center.Y + 5);
             }
 
+
+            points.Clear();
+
             // Draw measurement points
             foreach (Measurement measurement in scan.Measurements)
             {
@@ -362,7 +368,37 @@ namespace Demo.PanelControl
             }
 
         }
+        private string GetUniqueFilePath(string baseFilePath)
+        {
+            string directory = Path.GetDirectoryName(baseFilePath);
+            string fileName = Path.GetFileNameWithoutExtension(baseFilePath);
+            string extension = Path.GetExtension(baseFilePath);
+            int count = 1;
 
+            string newFilePath = baseFilePath;
+            while (File.Exists(newFilePath))
+            {
+                newFilePath = Path.Combine(directory, $"{fileName}_{count}{extension}");
+                count++;
+            }
+
+            return newFilePath;
+        }
+
+        private void SaveMeasurementsToCsv(string filePath, Scan scan)
+        {
+            using (StreamWriter writer = new StreamWriter(filePath))
+            {
+                // Write header
+                writer.WriteLine("Angle,Distance");
+
+                // Write data
+                foreach (Measurement measurement in scan.Measurements)
+                {
+                    writer.WriteLine($"{measurement.Angle},{measurement.Distance}");
+                }
+            }
+        }
         private void pictureBox_Click_1(object sender, EventArgs e)
         {
 
@@ -372,5 +408,46 @@ namespace Demo.PanelControl
         {
 
         }
+        private void SavePointsToCsv(string filePath, List<Point> points)
+        {
+            using (StreamWriter writer = new StreamWriter(filePath))
+            {
+              
+                foreach (Point p in points)
+                {
+                    writer.WriteLine($"{p.X},{p.Y}");
+                }
+            }
+        }
+
+
+        private void buttonSave_Click(object sender, EventArgs e)
+        {
+            // Если данных больше 2000, сохраняем в файл
+            if (points.Count > 2000)
+            {
+                // Создаем диалог для выбора папки и имени файла для сохранения
+                using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+                {
+                    saveFileDialog.Filter = "CSV files (*.csv)|*.csv";
+                    saveFileDialog.Title = "Сохранение";
+
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        // Получаем путь к файлу из диалога
+                        string filePath = saveFileDialog.FileName;
+
+                        // Проверяем существование файла и создаем уникальное имя, если необходимо
+                        filePath = GetUniqueFilePath(filePath);
+
+                        // Сохраняем данные в CSV-файл
+                        SavePointsToCsv(filePath, points);
+
+                        MessageBox.Show("Данные об измерений успешно сохранены.", "Успешно", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+        }
+
     }
 }

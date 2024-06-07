@@ -9,10 +9,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Basler.Pylon;
 using System.Drawing.Imaging;
+using Demo.bd;
+using System.IO;
 namespace Demo.PanelControl
 {
     public partial class CameraControlPanel : UserControl
     {
+        private MyDbContext dbContext;
         private Basler.Pylon.Camera camera;
         private Bitmap grabbedImage;
         private string strVendor, strModel, strFirmware;
@@ -60,6 +63,7 @@ namespace Demo.PanelControl
         public CameraControlPanel()
         {
             InitializeComponent();
+            dbContext = new MyDbContext(DemoForm.connectionString);
         }
 
         private void btnOpenCamera_Click(object sender, EventArgs e)
@@ -68,12 +72,12 @@ namespace Demo.PanelControl
             {
                 if (tbSerialNumber.Text == "")
                 {
-                    tbMessages.AppendText("\r\nOpening First Camera Found...");
+                    tbMessages.AppendText("\r\nОткрытие первой найденной камеры...");
                     camera = new Camera();
                 }
                 else
                 {
-                    tbMessages.AppendText("\r\nOpening Camera: " + tbSerialNumber.Text + "...");
+                    tbMessages.AppendText("\r\nКамера открытия: " + tbSerialNumber.Text + "...");
                     camera = new Camera(tbSerialNumber.Text);
                 }
 
@@ -122,7 +126,7 @@ namespace Demo.PanelControl
                     camera.Close();
                 camera.Dispose();
             }
-            tbMessages.AppendText("\r\nCamera Released.");
+            tbMessages.AppendText("\r\nКамера выпущена.");
 
             btnOpenCamera.Enabled = true;
             btnStartGrabbing.Enabled = false;
@@ -148,7 +152,17 @@ namespace Demo.PanelControl
             }
         }
 
-        private void BtnSnapShot_Click(object sender, EventArgs e)
+     
+    
+
+        private void CameraBack_Click(object sender, EventArgs e)
+        {
+            new DemoForm().Show();
+            this.Hide();
+            
+        }
+
+        private void btnSnapShot_Click_1(object sender, EventArgs e)
         {
             try
             {
@@ -160,31 +174,49 @@ namespace Demo.PanelControl
                 tbMessages.AppendText("\r\n");
                 tbMessages.AppendText(ex.Message.ToString());
             }
+
         }
 
-        private void BtnSaveSnapshot_Click(object sender, EventArgs e)
+        private void btnSaveSnapshot_Click_1(object sender, EventArgs e)
         {
             if (pbSnapShot.Image != null)
             {
-                string fileName = Application.StartupPath.ToString() + "Snapshot_" + DateTime.Now.ToString("yyyyMMddHHmmssffff") + ".bmp";
+                string fileName = Application.StartupPath.ToString() + "\\Snapshot_" + DateTime.Now.ToString("yyyyMMddHHmmssffff") + ".bmp";
+
+                // Сохраняем фото на диск
                 pbSnapShot.Image.Save(fileName, ImageFormat.Bmp);
-                tbMessages.AppendText("\r\nSnapshot saved as: " + fileName);
+                tbMessages.AppendText("\r\nСнимок сохранен как: " + fileName);
+
+                // Читаем сохраненное фото обратно в массив байтов
+                byte[] photoBytes;
+                using (var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read))
+                {
+                    using (var reader = new BinaryReader(stream))
+                    {
+                        photoBytes = reader.ReadBytes((int)stream.Length);
+                    }
+                }
+
+                // Создаем новый объект Camera и заполняем его данными
+                var camera = new TCamera
+                {
+                    PhotoDate = DateTime.Now,
+                    Photo = photoBytes
+                };
+
+                // Добавляем объект Camera в контекст базы данных и сохраняем изменения
+                dbContext.Cameras.Add(camera);
+                dbContext.SaveChanges();
+
                 btnSaveSnapshot.Enabled = false;
             }
-        }
-
-        private void CameraBack_Click(object sender, EventArgs e)
-        {
-            new DemoForm().Show();
-            this.Hide();
-            
         }
 
         private void OnCameraOpened(Object sender, EventArgs e)
         {
             try
             {
-                tbMessages.AppendText("\r\nCamera Opened.");
+                tbMessages.AppendText("\r\nКамера открыта.");
 
                 // Configure the camera
                 camera.Parameters[PLCamera.UserSetSelector].SetValue(PLCamera.UserSetSelector.Default);
@@ -232,7 +264,7 @@ namespace Demo.PanelControl
                 btnStartGrabbing.Enabled = true;
                 btnReleaseCamera.Enabled = true;
 
-                tbMessages.AppendText("\r\nCamera Initialized.");
+                tbMessages.AppendText("\r\nКамера инициализирована.");
             }
             catch (Exception ex)
             {
@@ -260,7 +292,7 @@ namespace Demo.PanelControl
                 BeginInvoke(new EventHandler<EventArgs>(OnConnectionLost), sender, e);
             }
 
-            tbMessages.AppendText("\r\nCamera has been disconnected. Reconnect and click Open Camera.");
+            tbMessages.AppendText("\r\nКамера была отключена. Подключитесь снова и нажмите Открыть камеру.");
             btnOpenCamera.Enabled = true;
             btnStartGrabbing.Enabled = false;
             btnStopGrabbing.Enabled = false;

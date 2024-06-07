@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Demo.bd;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,13 +13,13 @@ namespace Demo
 {
     public partial class LoginForm : Form
     {
+        private MyDbContext dbContext;
         public LoginForm()
         {
             InitializeComponent();
+            dbContext = new MyDbContext(DemoForm.connectionString);
         }
-        //NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.AppSettings.Get("MyConnection"));
-        //NpgsqlCommand cmd = new NpgsqlCommand();
-        //NpgsqlDataAdapter da = new NpgsqlDataAdapter();
+      
         private void LoginForm_Load(object sender, EventArgs e)
         {
 
@@ -39,34 +40,51 @@ namespace Demo
 
         private void registrationButton_Click(object sender, EventArgs e)
         {
-            //if (conn != null && conn.State == ConnectionState.Open)
-            //{
-            //    conn.Close();
-            //}
-            //conn.Open();
-            //string login = ("SELECT * FROM csharp_user WHERE username =  '" + txtUsername.Text + "' and password = '" + txtPassword.Text + "' ");
-            //cmd = new NpgsqlCommand(login, conn);
-            //NpgsqlDataReader dr = cmd.ExecuteReader();
+            string username = txtUsername.Text;
+            string password = txtPassword.Text;
 
+            // Проверка наличия данных в полях ввода
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
+            {
+                // Вывод сообщения об ошибке при пустых полях ввода
+                MessageBox.Show("Имя пользователя и пароль не могут быть пустыми", "Ошибка входа", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
-            //if (dr.Read() == true)
-            //{
-            //    conn.Close();
-            //    new Dashboard().Show();
-            //    Dashboard.instance.lbl.Text = txtUsername.Text;
-            //    this.Hide();
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Invalid Credentials, please try Again.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    txtUsername.Text = "";
-            //    txtPassword.Text = "";
-            //    txtUsername.Focus();
-            //    if (conn != null && conn.State == ConnectionState.Closed)
-            //    {
-            //        conn.Open();
-            //    }
-            //}
+            try
+            {
+                // Поиск пользователя по имени пользователя (логину)
+                User user = dbContext.Users.FirstOrDefault(u => u.Username == username);
+
+                if (user != null)
+                {
+                    // Сверка введенного пароля с хешированным паролем из базы данных
+                    string hashedPassword = PasswordHasher.HashPassword(password);
+
+                    if (user.Password == hashedPassword)
+                    {
+                        // Если пароль верный, вывод сообщения об успешном входе
+                        MessageBox.Show("Вход выполнен успешно!", "Успешно", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        new DemoForm().Show();
+                        this.Hide();
+                    }
+                    else
+                    {
+                        // Вывод сообщения об ошибке при неверном пароле
+                        MessageBox.Show("Неверный пароль, попробуйте снова", "Ошибка входа", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    // Вывод сообщения об ошибке при отсутствии пользователя
+                    MessageBox.Show("Пользователь не найден, проверьте имя пользователя", "Ошибка входа", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Вывод сообщения об ошибке в случае исключения
+                MessageBox.Show("Ошибка: " + ex.Message, "Ошибка входа", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void checkboxShowPass_CheckedChanged(object sender, EventArgs e)

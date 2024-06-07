@@ -8,21 +8,81 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.Entity;
+using Demo.bd;
+using System.Data.SqlClient;
+using System.Runtime.Remoting.Contexts;
 
 namespace Demo
 {
     public partial class DemoForm : Form
     {
+        public const string connectionString = @"Data Source=COMP-AZIZ\SQLEXPRESS;Initial Catalog=PrecepDB;Integrated Security=True";
+
         public DemoForm()
         {
             InitializeComponent();
+         
+            // Проверяем, существует ли база данных
+
+            try
+            {
+                // Проверяем, существует ли база данных
+                bool databaseExists = CheckDatabaseExists(connectionString);
+
+                // Если база данных не существует, создаем ее
+                if (!databaseExists)
+                {
+                    // Создаем базу данных и таблицы
+                    using (var context = new MyDbContext(connectionString))
+                    {
+                  
+                        context.Database.Create();
+                    }
+
+                    MessageBox.Show("База данных создана успешно.", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    using (var context = new MyDbContext(connectionString))
+                    {
+                        //context.Database.Initialize(true);
+                        context.SaveChanges();
+                    }
+
+                
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Произошла ошибка при создании базы данных: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+
             AnalyticControlPanel analyticControlPanel = new AnalyticControlPanel();
             addUserControl(analyticControlPanel);
         }
 
-     
+        private bool CheckDatabaseExists(string connectionString)
+        {
+            try
+            {
+                using (var connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                
+                    return true;
+                }
+            }
+            catch (SqlException)
+            {
+              
+                return false;
+            }
+        }
+    
 
-        private void LidarRadioButton_Click(object sender, EventArgs e)
+    private void LidarRadioButton_Click(object sender, EventArgs e)
         {
             LidarControlPanel lidarControlPanel = new LidarControlPanel();
             addUserControl(lidarControlPanel);

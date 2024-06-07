@@ -70,21 +70,21 @@
             this.btnReleaseCamera.Location = new System.Drawing.Point(11, 246);
             this.btnReleaseCamera.Margin = new System.Windows.Forms.Padding(2);
             this.btnReleaseCamera.Name = "btnReleaseCamera";
-            this.btnReleaseCamera.Size = new System.Drawing.Size(102, 19);
+            this.btnReleaseCamera.Size = new System.Drawing.Size(103, 42);
             this.btnReleaseCamera.TabIndex = 55;
-            this.btnReleaseCamera.Text = "Release Camera";
+            this.btnReleaseCamera.Text = "Освобождение камеры";
             this.btnReleaseCamera.UseVisualStyleBackColor = true;
             this.btnReleaseCamera.Click += new System.EventHandler(this.btnReleaseCamera_Click);
             // 
             // lbSerialNumber
             // 
             this.lbSerialNumber.AutoSize = true;
-            this.lbSerialNumber.Location = new System.Drawing.Point(11, 132);
+            this.lbSerialNumber.Location = new System.Drawing.Point(-3, 122);
             this.lbSerialNumber.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbSerialNumber.Name = "lbSerialNumber";
-            this.lbSerialNumber.Size = new System.Drawing.Size(104, 13);
+            this.lbSerialNumber.Size = new System.Drawing.Size(140, 13);
             this.lbSerialNumber.TabIndex = 54;
-            this.lbSerialNumber.Text = "Enter Serial Number:";
+            this.lbSerialNumber.Text = "Введите серийный номер:";
             // 
             // tbSerialNumber
             // 
@@ -94,29 +94,32 @@
             this.tbSerialNumber.Name = "tbSerialNumber";
             this.tbSerialNumber.Size = new System.Drawing.Size(103, 20);
             this.tbSerialNumber.TabIndex = 53;
+            this.tbSerialNumber.Text = "COM2";
             this.tbSerialNumber.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // btnSaveSnapshot
             // 
             this.btnSaveSnapshot.Enabled = false;
-            this.btnSaveSnapshot.Location = new System.Drawing.Point(747, 252);
+            this.btnSaveSnapshot.Location = new System.Drawing.Point(736, 252);
             this.btnSaveSnapshot.Margin = new System.Windows.Forms.Padding(2);
             this.btnSaveSnapshot.Name = "btnSaveSnapshot";
             this.btnSaveSnapshot.Size = new System.Drawing.Size(101, 19);
             this.btnSaveSnapshot.TabIndex = 52;
-            this.btnSaveSnapshot.Text = "Save Snapshot";
+            this.btnSaveSnapshot.Text = "Сохранить снимок";
             this.btnSaveSnapshot.UseVisualStyleBackColor = true;
+            this.btnSaveSnapshot.Click += new System.EventHandler(this.btnSaveSnapshot_Click_1);
             // 
             // btnSnapShot
             // 
             this.btnSnapShot.Enabled = false;
-            this.btnSnapShot.Location = new System.Drawing.Point(597, 252);
+            this.btnSnapShot.Location = new System.Drawing.Point(586, 252);
             this.btnSnapShot.Margin = new System.Windows.Forms.Padding(2);
             this.btnSnapShot.Name = "btnSnapShot";
-            this.btnSnapShot.Size = new System.Drawing.Size(101, 19);
+            this.btnSnapShot.Size = new System.Drawing.Size(146, 19);
             this.btnSnapShot.TabIndex = 51;
-            this.btnSnapShot.Text = "Take Snapshot";
+            this.btnSnapShot.Text = "Сделать снимок";
             this.btnSnapShot.UseVisualStyleBackColor = true;
+            this.btnSnapShot.Click += new System.EventHandler(this.btnSnapShot_Click_1);
             // 
             // pbSnapShot
             // 
@@ -138,7 +141,7 @@
             this.btnStopGrabbing.Name = "btnStopGrabbing";
             this.btnStopGrabbing.Size = new System.Drawing.Size(102, 19);
             this.btnStopGrabbing.TabIndex = 49;
-            this.btnStopGrabbing.Text = "Stop Grabbing";
+            this.btnStopGrabbing.Text = "Stop";
             this.btnStopGrabbing.UseVisualStyleBackColor = true;
             this.btnStopGrabbing.Click += new System.EventHandler(this.btnStopGrabbing_Click);
             // 
@@ -150,7 +153,7 @@
             this.btnStartGrabbing.Name = "btnStartGrabbing";
             this.btnStartGrabbing.Size = new System.Drawing.Size(102, 19);
             this.btnStartGrabbing.TabIndex = 48;
-            this.btnStartGrabbing.Text = "Start Grabbing";
+            this.btnStartGrabbing.Text = "Start";
             this.btnStartGrabbing.UseVisualStyleBackColor = true;
             this.btnStartGrabbing.Click += new System.EventHandler(this.btnStartGrabbing_Click);
             // 
@@ -161,7 +164,7 @@
             this.btnOpenCamera.Name = "btnOpenCamera";
             this.btnOpenCamera.Size = new System.Drawing.Size(102, 19);
             this.btnOpenCamera.TabIndex = 47;
-            this.btnOpenCamera.Text = "Open Camera";
+            this.btnOpenCamera.Text = "Подключиться";
             this.btnOpenCamera.UseVisualStyleBackColor = true;
             this.btnOpenCamera.Click += new System.EventHandler(this.btnOpenCamera_Click);
             // 
@@ -170,12 +173,12 @@
             this.cbUseTestImage.AutoSize = true;
             this.cbUseTestImage.Checked = true;
             this.cbUseTestImage.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbUseTestImage.Location = new System.Drawing.Point(11, 347);
+            this.cbUseTestImage.Location = new System.Drawing.Point(11, 370);
             this.cbUseTestImage.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.cbUseTestImage.Name = "cbUseTestImage";
-            this.cbUseTestImage.Size = new System.Drawing.Size(101, 17);
+            this.cbUseTestImage.Size = new System.Drawing.Size(231, 17);
             this.cbUseTestImage.TabIndex = 46;
-            this.cbUseTestImage.Text = "Use Test Image";
+            this.cbUseTestImage.Text = "Использование тестового изображения";
             this.cbUseTestImage.UseVisualStyleBackColor = true;
             // 
             // lbMessages
@@ -184,18 +187,18 @@
             this.lbMessages.Location = new System.Drawing.Point(305, 5);
             this.lbMessages.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbMessages.Name = "lbMessages";
-            this.lbMessages.Size = new System.Drawing.Size(73, 13);
+            this.lbMessages.Size = new System.Drawing.Size(123, 13);
             this.lbMessages.TabIndex = 45;
-            this.lbMessages.Text = "Last Message";
+            this.lbMessages.Text = "Последнее сообщение";
             // 
             // pbImage
             // 
             this.pbImage.BackColor = System.Drawing.SystemColors.ControlDark;
             this.pbImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbImage.Location = new System.Drawing.Point(119, 89);
+            this.pbImage.Location = new System.Drawing.Point(141, 89);
             this.pbImage.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.pbImage.Name = "pbImage";
-            this.pbImage.Size = new System.Drawing.Size(442, 279);
+            this.pbImage.Size = new System.Drawing.Size(420, 279);
             this.pbImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbImage.TabIndex = 43;
             this.pbImage.TabStop = false;
@@ -203,22 +206,22 @@
             // lbFailedImages
             // 
             this.lbFailedImages.AutoSize = true;
-            this.lbFailedImages.Location = new System.Drawing.Point(11, 313);
+            this.lbFailedImages.Location = new System.Drawing.Point(3, 323);
             this.lbFailedImages.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbFailedImages.Name = "lbFailedImages";
-            this.lbFailedImages.Size = new System.Drawing.Size(72, 13);
+            this.lbFailedImages.Size = new System.Drawing.Size(134, 13);
             this.lbFailedImages.TabIndex = 42;
-            this.lbFailedImages.Text = "Failed Images";
+            this.lbFailedImages.Text = "Неудачные изображения";
             // 
             // lbSuccessfulImages
             // 
             this.lbSuccessfulImages.AutoSize = true;
-            this.lbSuccessfulImages.Location = new System.Drawing.Point(11, 280);
+            this.lbSuccessfulImages.Location = new System.Drawing.Point(11, 290);
             this.lbSuccessfulImages.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbSuccessfulImages.Name = "lbSuccessfulImages";
-            this.lbSuccessfulImages.Size = new System.Drawing.Size(96, 13);
+            this.lbSuccessfulImages.Size = new System.Drawing.Size(93, 13);
             this.lbSuccessfulImages.TabIndex = 41;
-            this.lbSuccessfulImages.Text = "Successful Images";
+            this.lbSuccessfulImages.Text = "Удачные образы";
             // 
             // lbCameraInfo
             // 
@@ -226,13 +229,13 @@
             this.lbCameraInfo.Location = new System.Drawing.Point(11, 5);
             this.lbCameraInfo.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbCameraInfo.Name = "lbCameraInfo";
-            this.lbCameraInfo.Size = new System.Drawing.Size(98, 13);
+            this.lbCameraInfo.Size = new System.Drawing.Size(123, 13);
             this.lbCameraInfo.TabIndex = 40;
-            this.lbCameraInfo.Text = "Camera Information";
+            this.lbCameraInfo.Text = "Информация о камере";
             // 
             // tbFailedGrabs
             // 
-            this.tbFailedGrabs.Location = new System.Drawing.Point(11, 327);
+            this.tbFailedGrabs.Location = new System.Drawing.Point(11, 337);
             this.tbFailedGrabs.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.tbFailedGrabs.Name = "tbFailedGrabs";
             this.tbFailedGrabs.ReadOnly = true;
@@ -242,7 +245,7 @@
             // 
             // tbSuccessfulGrabs
             // 
-            this.tbSuccessfulGrabs.Location = new System.Drawing.Point(11, 294);
+            this.tbSuccessfulGrabs.Location = new System.Drawing.Point(11, 304);
             this.tbSuccessfulGrabs.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.tbSuccessfulGrabs.Name = "tbSuccessfulGrabs";
             this.tbSuccessfulGrabs.ReadOnly = true;
@@ -260,6 +263,7 @@
             this.tbMessages.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.tbMessages.Size = new System.Drawing.Size(543, 60);
             this.tbMessages.TabIndex = 37;
+            this.tbMessages.Text = "Connect";
             // 
             // tbCameraInfo
             // 
@@ -271,6 +275,7 @@
             this.tbCameraInfo.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.tbCameraInfo.Size = new System.Drawing.Size(290, 60);
             this.tbCameraInfo.TabIndex = 44;
+            this.tbCameraInfo.Text = "Не известно";
             // 
             // CameraControlPanel
             // 

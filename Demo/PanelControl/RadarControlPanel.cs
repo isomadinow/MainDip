@@ -12,6 +12,8 @@ using LiveCharts.Definitions.Charts;
 using System.IO.Ports;
 using LiveCharts.Wpf;
 using LiveCharts;
+using System.IO;
+using System.Threading;
 
 namespace Demo.PanelControl
 {
@@ -31,7 +33,7 @@ namespace Demo.PanelControl
             }
             else
             {
-                MessageBox.Show("Порт не подключен!");
+               // MessageBox.Show("Порт не подключен!");
             }
             progressBar1.Maximum = 100;
             progressBar1.Minimum = 0;
@@ -94,31 +96,79 @@ namespace Demo.PanelControl
             resetChart();
         }
 
-        private async void buttonStart_Click(object sender, EventArgs e)
+       private List<PointF> points = new List<PointF>();
+        private async  void buttonStart_Click(object sender, EventArgs e)
         {
-            //String a = textBox1.Text;
-            int numberOfReadings = 0;
-            Int32.TryParse(textBox1.Text, out numberOfReadings);
+            int numberOfReadings = 200; // Указываете количество тестовых данных, которое вы хотите сгенерировать
+            await GenerateTestData(numberOfReadings);
+            ////String a = textBox1.Text;
+            //int numberOfReadings = 0;
+            //Int32.TryParse(textBox1.Text, out numberOfReadings);
+            //CleanBuffer();
+
+            //for (int i = 0; i < numberOfReadings; i++)
+            //{
+
+            //    Task<String> valueSerial = ReadSerial();
+            //    String finalValueSerial = await valueSerial;
+            //    Double d = Convert.ToDouble(finalValueSerial);
+
+            //    this.cartesianChart2.Series[0].Values.Add(d);
+            //    int barValue = Convert.ToInt32(d);        // Добавляем X и Y координаты в список
+            //    points.Add(new PointF(i, (float)d));
+            //    if (barValue > 100)
+            //    {
+
+            //        barValue = 100;
+            //    }
+            //    progressBar1.Value = barValue;
+            //    label4.Text = d.ToString();
+            //}
+         
+        }
+   
+        private async Task GenerateTestData(int numberOfReadings)
+        {
             CleanBuffer();
+
+            Random random = new Random();
+           
+           
             for (int i = 0; i < numberOfReadings; i++)
             {
+                double randomValue = random.NextDouble() * 200; // Генерируем случайное значение от 0 до 200
+                this.cartesianChart2.Series[0].Values.Add(randomValue);
 
-                Task<String> valueSerial = ReadSerial();
-                String finalValueSerial = await valueSerial;
-                Double d = Convert.ToDouble(finalValueSerial);
-                this.cartesianChart2.Series[0].Values.Add(d);
-                int barValue = Convert.ToInt32(d);
+                int barValue = (int)randomValue;
                 if (barValue > 100)
                 {
                     barValue = 100;
                 }
                 progressBar1.Value = barValue;
-                label4.Text = d.ToString();
+                label4.Text = barValue.ToString();
+
+                points.Add(new PointF(i, (float)randomValue)); 
+                
+                // Добавляем координаты в список точек
+            }
+
+            // Сохраняем данные в CSV-файл (это можно сделать и в другом методе, если нужно)
+
+        }
+        private void SavePointsToCsv(string filePath, List<PointF> points)
+        {
+            using (StreamWriter writer = new StreamWriter(filePath))
+            {
+             
+                foreach (PointF point in points)
+                {
+                    writer.WriteLine($"{point.X},{point.Y}");
+                }
             }
         }
         public void CleanBuffer()
         {
-            port.DiscardInBuffer();
+           // port.DiscardInBuffer();
         }
         public async Task<String> ReadSerial()
         {
@@ -137,8 +187,31 @@ namespace Demo.PanelControl
 
         private void buttonStop_Click(object sender, EventArgs e)
         {
+            //port.Close();
+        }
 
+        private void buttonSave_Click(object sender, EventArgs e)
+        {
+            // Создаем диалог выбора папки для сохранения файла
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = "CSV files (*.csv)|*.csv";
+                saveFileDialog.Title = "Save Data";
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    // Получаем путь к файлу из диалога
+                    string filePath = saveFileDialog.FileName;
+
+                    // Вызываем метод сохранения данных в CSV-файле
+                    SavePointsToCsv(filePath, points);
+
+                    // После сохранения можно вывести сообщение об успешном сохранении
+                    MessageBox.Show("Data saved successfully.", "Save Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
         }
     }
     }
+
 
