@@ -70,6 +70,7 @@ namespace Demo.PanelControl
         {
             try
             {
+                
                 if (tbSerialNumber.Text == "")
                 {
                     tbMessages.AppendText("\r\nОткрытие первой найденной камеры...");

@@ -11,6 +11,7 @@ namespace Demo.bd
     public class TCamera
     {
         [Key]
+        public int id { get; set; }
         public DateTime PhotoDate { get; set; }
         public byte[] Photo { get; set; }
     }

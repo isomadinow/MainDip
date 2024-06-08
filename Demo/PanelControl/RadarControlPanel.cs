@@ -99,6 +99,8 @@ namespace Demo.PanelControl
        private List<PointF> points = new List<PointF>();
         private async  void buttonStart_Click(object sender, EventArgs e)
         {
+            MessageBox.Show("Не выбран порт!");
+            MessageBox.Show("Не возможно принять и отобразить данные, так как нет подключение к COM-порту!");
             int numberOfReadings = 200; // Указываете количество тестовых данных, которое вы хотите сгенерировать
             await GenerateTestData(numberOfReadings);
             ////String a = textBox1.Text;

@@ -11,6 +11,7 @@ namespace Demo.bd
     public class Polygon
     {
         [Key]
+ 
         public DateTime PolygonDate { get; set; }
         public string PolygonName { get; set; }
         public byte[] PolygonPhoto { get; set; }

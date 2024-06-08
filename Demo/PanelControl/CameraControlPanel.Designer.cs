@@ -135,7 +135,6 @@
             // 
             // btnStopGrabbing
             // 
-            this.btnStopGrabbing.Enabled = false;
             this.btnStopGrabbing.Location = new System.Drawing.Point(11, 223);
             this.btnStopGrabbing.Margin = new System.Windows.Forms.Padding(2);
             this.btnStopGrabbing.Name = "btnStopGrabbing";
@@ -147,7 +146,6 @@
             // 
             // btnStartGrabbing
             // 
-            this.btnStartGrabbing.Enabled = false;
             this.btnStartGrabbing.Location = new System.Drawing.Point(11, 200);
             this.btnStartGrabbing.Margin = new System.Windows.Forms.Padding(2);
             this.btnStartGrabbing.Name = "btnStartGrabbing";
@@ -263,7 +261,6 @@
             this.tbMessages.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.tbMessages.Size = new System.Drawing.Size(543, 60);
             this.tbMessages.TabIndex = 37;
-            this.tbMessages.Text = "Connect";
             // 
             // tbCameraInfo
             // 
